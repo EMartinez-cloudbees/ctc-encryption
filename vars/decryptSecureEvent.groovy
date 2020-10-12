@@ -1,4 +1,4 @@
-def call(String privateKeyCredentialId, String encryptedText) {
+def call(String privateKeyCredentialId) {
   def sourceJob = currentBuild?.getBuildCauses()[0]?.event?.source?.buildInfo?.job?.toString().replaceAll('/','-')
   def encryptedText = currentBuild?.getBuildCauses()[0]?.event?.encryptedText?.toString()
 

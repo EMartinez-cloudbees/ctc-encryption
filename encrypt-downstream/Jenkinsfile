@@ -6,20 +6,6 @@ pipeline {
     eventTrigger jmespathQuery("jobType=='encrypted'")
   }
   stages {
-    stage("Parse Payload") {
-      when {
-        triggeredBy "EventTriggerCause"
-      }
-      steps {
-        script {
-          env.SOURCE_JOB = currentBuild?.getBuildCauses()[0]?.event?.source?.buildInfo?.job?.toString().replaceAll('/','-')
-          env.ENCRYPTED_TEXT = currentBuild?.getBuildCauses()[0]?.event?.encryptedText?.toString()
-        }
-        echo "source job: ${env.SOURCE_JOB}"
-        
-        echo "env.ENCRYPTED_TEXT: ${env.ENCRYPTED_TEXT}"
-      }
-    }
     stage("Decrypt message") {
       when {
         triggeredBy "EventTriggerCause"
@@ -28,8 +14,7 @@ pipeline {
         PRIVATE_KEY = credentials("${env.SOURCE_JOB}")
       }
       steps {
-        // decryptSecureEvent("${env.PRIVATE_KEY}", "${env.ENCRYPTED_TEXT}")
-        sh "echo ${env.ENCRYPTED_TEXT} | base64 -d | openssl rsautl -inkey ${env.PRIVATE_KEY} -decrypt"
+        decryptSecureEvent("${env.PRIVATE_KEY}")
       }
     }
   }

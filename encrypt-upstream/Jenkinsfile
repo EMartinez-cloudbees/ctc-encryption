@@ -11,12 +11,7 @@ pipeline {
   stages {
     stage ("Send encrypted message") {
       steps {
-        // publishSecureEvent("${env.PUBLIC_KEY}", "${params.SECRET_STRING}")
-        script {
-          env.ENCRYPTED_TEXT = sh(script: "echo ${params.SECRET_STRING} | openssl rsautl -inkey $PUBLIC_KEY -pubin -encrypt | base64 -w 0",
-                                  returnStdout: true).trim()
-        }
-        publishEvent event: jsonEvent("{'jobType':'encrypted', 'encryptedText': '${env.ENCRYPTED_TEXT}'}"), verbose: true
+        publishSecureEvent("${env.PUBLIC_KEY}", "${params.SECRET_STRING}")
       }
     }
   }

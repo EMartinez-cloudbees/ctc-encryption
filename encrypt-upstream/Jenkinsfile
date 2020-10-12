@@ -1,4 +1,4 @@
-library 'ctc-encryption@main'
+library 'ctc-encryption@shared-library'
 
 pipeline {
   agent any

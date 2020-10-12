@@ -10,11 +10,8 @@ pipeline {
       when {
         triggeredBy "EventTriggerCause"
       }
-      environment {
-        PRIVATE_KEY = credentials("${env.SOURCE_JOB}")
-      }
       steps {
-        decryptSecureEvent("${env.PRIVATE_KEY}")
+        decryptSecureEvent()
       }
     }
   }

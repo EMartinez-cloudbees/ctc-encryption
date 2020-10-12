@@ -1,3 +1,5 @@
+library 'ctc-encryption@main'
+
 pipeline {
   agent any
   environment {

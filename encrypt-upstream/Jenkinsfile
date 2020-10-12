@@ -2,16 +2,13 @@ library 'ctc-encryption@shared-library'
 
 pipeline {
   agent any
-  environment {
-    PUBLIC_KEY = credentials("publicKey")
-  }
   parameters {
     password(name: 'SECRET_STRING', description: 'Secret string to pass to downstream job')
   }
   stages {
     stage ("Send encrypted message") {
       steps {
-        publishSecureEvent("${env.PUBLIC_KEY}", "${params.SECRET_STRING}")
+        publishSecureEvent("publicKey", "${params.SECRET_STRING}")
       }
     }
   }

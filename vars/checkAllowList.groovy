@@ -3,5 +3,5 @@ def call() {
 
   def sourceJob = currentBuild?.getBuildCauses()[0]?.event?.source?.buildInfo?.job?.toString()
 
-  return checkLines(allowList)
+  return checkLines(allowList, sourceJob)
 }

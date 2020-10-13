@@ -5,10 +5,12 @@ pipeline {
   triggers {
     eventTrigger jmespathQuery("jobType=='encrypted'")
   }
-  stages {
     stage("Decrypt message") {
       when {
         triggeredBy "EventTriggerCause"
+        expression {
+          checkAllowList()
+        }
       }
       steps {
         decryptSecureEvent()

@@ -1,4 +1,4 @@
-def call(String publicKeyCredentialId "publicKey", String secretString) {
+def call(String publicKeyCredentialId, String secretString) {
 
   withCredentials([file(credentialsId: "${publicKeyCredentialId}", variable: "publicKey")]) {
     def encryptedText = sh(script: "echo ${secretString} | openssl rsautl -inkey ${publicKey} -pubin -encrypt | base64 -w 0",

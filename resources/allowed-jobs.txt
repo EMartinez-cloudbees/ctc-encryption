@@ -1,2 +1,2 @@
-upstream/publishSecureEvent/shared-library
+upstream/publishSecureEvent/main
 upstream/encrypt-upstream
